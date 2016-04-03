@@ -1,24 +1,7 @@
 #TeamCitySharp
 
-*.NET Library to access TeamCity via their REST API.
-
-For more information on TeamCity visit:
-http://www.jetbrains.com/teamcity
-
-##Releases
-Please find the release notes [here](https://github.com/stack72/TeamCitySharp/releases)
-
-##License 
-http://stack72.mit-license.org/
-
-##Installation
-There are 2 ways to use TeamCitySharp:
-
-* install-package TeamCitysharp (via Nuget)
-* Download source and compile
-
-##Build Monitor
-* There is a sample build monitor built with TeamCitySharp. It can be found at [TeamCityMonitor](https://github.com/stack72/TeamCityMonitor)
+*.NET Library to access TeamCity via their REST API forked from https://github.com/stack72/TeamCitySharp
+*Added extra capability to filter build artefacts within a range
 
 ##Sample Usage
 To get a list of projects
@@ -156,17 +139,3 @@ Each area has its own list of methods available
 
 ###BuildArtifacts
     void DownloadArtifactsByBuildId(string buildId, Action<string> downloadHandler);
-
-##Credits
-
-Copyright (c) 2013 Paul Stack (@stack72)
-
-Thanks to the following contributors:
-
-* Barry Mooring (@codingbadger)
-* Simon Bartlett (@sibartlett)
-* Mike Larah (@MikeLarah)
-* Alexander Fast (@mizipzor)
-* Serge Baltic
-* Philipp Dolder
-* Mark deVilliers
