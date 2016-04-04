@@ -3,7 +3,7 @@
 	<metadata>
 		<id>TeamCitySharp-Ruskin</id>
 		<version>$version$</version>
-		<title>TeamCitySharp</title>
+		<title>TeamCitySharp-Ruskin</title>
 		<authors>Ruskin Dantra</authors>
 		<owners>ruskindantra</owners>
 		<projectUrl>https://github.com/ruskindantra/TeamCitySharp</projectUrl>
