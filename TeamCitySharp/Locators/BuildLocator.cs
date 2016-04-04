@@ -10,7 +10,7 @@ namespace TeamCitySharp.Locators
         ERROR
     }
 
-    public class BuildLocator
+	public class BuildLocator
     {
         public static BuildLocator WithId(long id)
         {
