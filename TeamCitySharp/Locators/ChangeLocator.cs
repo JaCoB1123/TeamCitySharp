@@ -8,14 +8,16 @@ namespace TeamCitySharp.Locators
 		public static ChangeLocator WithDimensions(string buildType = null,
 			string username = "",
 			string sinceChange = null,
-			int? maxResults = null)
+			int? maxResults = null,
+			string build = null)
 		{
 			return new ChangeLocator
 			{
 				BuildType = buildType,
 				UserName = username,
 				SinceChange = sinceChange,
-				MaxResults = maxResults
+				MaxResults = maxResults,
+				Build = build
 			};
 		}
 
@@ -26,6 +28,8 @@ namespace TeamCitySharp.Locators
 		public string UserName { get; set; }
 
 		public string BuildType { get; set; }
+
+		public string Build { get; set; }
 
 		public override string ToString()
 		{
@@ -45,7 +49,12 @@ namespace TeamCitySharp.Locators
 			{
 				locatorFields.Add("sinceChange:" + SinceChange);
 			}
-			
+
+			if (!string.IsNullOrEmpty(Build))
+			{
+				locatorFields.Add("build:" + Build);
+			}
+
 			if (MaxResults.HasValue)
 			{
 				locatorFields.Add("count:" + MaxResults.Value);
