@@ -2,6 +2,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/qnnt1f8rakhpukcu?svg=true)](https://ci.appveyor.com/project/ruskindantra/teamcitysharp) [![License](http://img.shields.io/:license-mit-blue.svg)](https://raw.githubusercontent.com/ruskindantra/teamcitysharp/master/LICENSE) [![Nuget](https://img.shields.io/nuget/v/teamcitysharp-ruskin.svg)](https://www.nuget.org/packages/teamcitysharp-ruskin/)
 
 *.NET Library to access TeamCity via their REST API forked from https://github.com/stack72/TeamCitySharp
+
 *Added extra capability to filter build artefacts within a range
 
 ##Sample Usage
