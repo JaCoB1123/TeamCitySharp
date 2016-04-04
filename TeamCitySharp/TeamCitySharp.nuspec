@@ -15,6 +15,7 @@
 		<releaseNotes>
 			4-Apr-16
 				* Added untilDate to BuildLocator
+				* Added change locator
 		</releaseNotes>
 		<dependencies>
 			<dependency id="EasyHttp" version="1.6.85.0" />

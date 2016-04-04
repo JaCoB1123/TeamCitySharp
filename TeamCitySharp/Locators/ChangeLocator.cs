@@ -31,17 +31,17 @@ namespace TeamCitySharp.Locators
 		{
 			var locatorFields = new List<string>();
 
-			if (BuildType != null)
+			if (!string.IsNullOrEmpty(BuildType))
 			{
 				locatorFields.Add("buildType:(" + BuildType + ")");
 			}
 
-			if (UserName != null)
+			if (!string.IsNullOrEmpty(UserName))
 			{
 				locatorFields.Add("username:" + UserName);
 			}
 			
-			if (SinceChange != null)
+			if (!string.IsNullOrEmpty(SinceChange))
 			{
 				locatorFields.Add("sinceChange:" + SinceChange);
 			}
