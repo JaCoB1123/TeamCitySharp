@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using TeamCitySharp.DomainEntities;
-using TeamCitySharp.Locators;
+﻿using TeamCitySharp.Locators;
 
 namespace TeamCitySharp.Sample
 {
@@ -16,7 +13,7 @@ namespace TeamCitySharp.Sample
 			//var buildLocator = BuildLocator.WithDimensions(status:BuildStatus.FAILURE, maxResults:1000, sinceDate: new DateTime(2016, 03, 01), untilDate: new DateTime(2016, 03, 01, 12, 59, 59));
 			//List<Build> builds = client.Builds.ByBuildLocator(buildLocator);
 
-			var changeLocator = ChangeLocator.WithDimensions(buildType: "Development_CompilePackage", build: "10087");
+			var changeLocator = ChangeLocator.WithDimensions(buildType: "Development_CompilePackage", build: "10962");
 			var changes = client.Changes.ByChangeLocator(changeLocator);
 			//var allUsers = client.Users.All();
 

@@ -18,7 +18,9 @@ namespace TeamCitySharp.ActionTypes
 	    public List<Change> ByChangeLocator(ChangeLocator locator)
 	    {
 			var buildWrapper = _caller.GetFormat<ChangeWrapper>("/app/rest/changes?locator={0}", locator);
-			if (buildWrapper.Change.Count > 0)
+
+			// Some builds might not have any changes associated to it
+			if (buildWrapper.Change != null && buildWrapper.Change.Count > 0)
 			{
 				return buildWrapper.Change;
 			}
