@@ -102,6 +102,56 @@ namespace TeamCitySharp.ActionTypes
             _urls = urls;
         }
 
+        public bool Flatten { get; set; }
+
+        public string[] FileNames
+        {
+            get
+            {
+                var fileNames = new string[_urls.Count];
+                for (int i = 0; i < _urls.Count; i++)
+                {
+                    var url = _urls[i];
+                    // user probably didnt use to artifact url generating functions
+                    Debug.Assert(url.StartsWith("/repository/download/"));
+
+                    // figure out local filename
+                    var parts = url.Split('/').Skip(5).ToArray();
+                    var destination = Flatten
+                        ? parts.Last()
+                        : string.Join(Path.DirectorySeparatorChar.ToString(), parts);
+                    fileNames[i] = destination;
+                }
+                return fileNames;
+            }
+        }
+
+        public string Download(string directory, string fileName, bool overwrite)
+        {
+            var destination = Path.Combine(directory, fileName);
+
+            // create directories that doesnt exist
+            var directoryName = Path.GetDirectoryName(destination);
+            if (directoryName != null && !Directory.Exists(directoryName))
+            {
+                Directory.CreateDirectory(directoryName);
+            }
+
+            var result = Path.GetFullPath(destination);
+            // if the file already exists delete it or move to next artifact
+            if (File.Exists(destination))
+            {
+                if (!overwrite)
+                    return result;
+                else
+                    File.Delete(destination);
+            }
+
+            var index = Array.IndexOf(FileNames, fileName);
+            _caller.GetDownloadFormat(tempfile => File.Move(tempfile, destination), _urls[index]);
+            return result;
+        }
+
         /// <summary>
         /// Takes a list of artifact urls and downloads them, see ArtifactsBy* methods.
         /// </summary>
@@ -117,42 +167,17 @@ namespace TeamCitySharp.ActionTypes
         /// <returns>
         /// A list of full paths to all downloaded artifacts.
         /// </returns>
-        public List<string> Download(string directory = null, bool flatten = false, bool overwrite = true)
+        public List<string> Download(string directory = null, bool overwrite = true)
         {
             if (directory == null)
             {
                 directory = Directory.GetCurrentDirectory();
             }
             var downloaded = new List<string>();
-            foreach (var url in _urls)
+            foreach (var url in FileNames)
             {
-                // user probably didnt use to artifact url generating functions
-                Debug.Assert(url.StartsWith("/repository/download/"));
-
-                // figure out local filename
-                var parts = url.Split('/').Skip(5).ToArray();
-                var destination = flatten
-                    ? parts.Last()
-                    : string.Join(Path.DirectorySeparatorChar.ToString(), parts);
-                destination = Path.Combine(directory, destination);
-
-                // create directories that doesnt exist
-                var directoryName = Path.GetDirectoryName(destination);
-                if (directoryName != null && !Directory.Exists(directoryName))
-                {
-                    Directory.CreateDirectory(directoryName);
-                }
-
-                // add artifact to list regardless if it was downloaded or skipped
-                downloaded.Add(Path.GetFullPath(destination));
-
-                // if the file already exists delete it or move to next artifact
-                if (File.Exists(destination))
-                {
-                    if (overwrite) File.Delete(destination);
-                    else continue;
-                }
-                _caller.GetDownloadFormat(tempfile => File.Move(tempfile, destination), url);
+                var result = Download(directory, url, overwrite);
+                downloaded.Add(result);
             }
             return downloaded;
         }
